@@ -85,6 +85,7 @@ class AddShow extends Component {
 
 
     render() {
+        console.log("now", this.state.weekday)
         return (
             <div className="submit-form">
                 {this.state.submitted ? (
