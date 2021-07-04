@@ -1,12 +1,17 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { createShow } from "../actions/shows";
+import React, {Component} from "react";
+import {connect} from "react-redux";
+import {createShow} from "../actions/shows";
+import {Link} from "react-router-dom";
+import {Multiselect} from "multiselect-react-dropdown";
 
 class AddShow extends Component {
+
     constructor(props) {
         super(props);
         this.onChangeTitle = this.onChangeTitle.bind(this);
         this.onChangeDescription = this.onChangeDescription.bind(this);
+        this.onChangeNetwork = this.onChangeNetwork.bind(this);
+        this.onChangeWeekday = this.onChangeWeekday.bind(this);
         this.saveShow = this.saveShow.bind(this);
         this.newShow = this.newShow.bind(this);
 
@@ -14,9 +19,11 @@ class AddShow extends Component {
             id: null,
             title: "",
             description: "",
+            network: "",
+            weekday: [],
             published: false,
-
             submitted: false,
+            weekdayOptions: [{name: 'Monday'}, {name: 'Tuesday'}, {name: 'Wednesday'}, {name: 'Thursday'}, {name: 'Friday'}, {name: 'Saturday'}, {name: 'Sunday'}],
         };
     }
 
@@ -32,9 +39,22 @@ class AddShow extends Component {
         });
     }
 
-    saveShow() {
-        const { title, description } = this.state;
+    onChangeNetwork(e) {
+        this.setState({
+            network: e.target.value,
+        });
+    }
 
+    onChangeWeekday(e) {
+        const values = Array.from(e, option => option);
+        this.setState({
+                weekday: values
+            }
+        )
+    }
+
+    saveShow() {
+        const {title, description} = this.state;
         this.props
             .createShow(title, description)
             .then((data) => {
@@ -59,12 +79,13 @@ class AddShow extends Component {
             title: "",
             description: "",
             published: false,
-
             submitted: false,
         });
     }
 
+
     render() {
+        console.log("now", this.state.weekday)
         return (
             <div className="submit-form">
                 {this.state.submitted ? (
@@ -76,7 +97,7 @@ class AddShow extends Component {
                     </div>
                 ) : (
                     <div>
-                        <div className="form-group">
+                        <div className="form-group divid">
                             <label htmlFor="title">Title</label>
                             <input
                                 type="text"
@@ -88,8 +109,7 @@ class AddShow extends Component {
                                 name="title"
                             />
                         </div>
-
-                        <div className="form-group">
+                        <div className="form-group divid">
                             <label htmlFor="description">Description</label>
                             <input
                                 type="text"
@@ -101,8 +121,41 @@ class AddShow extends Component {
                                 name="description"
                             />
                         </div>
-
-                        <button onClick={this.saveShow} className="btn btn-success">
+                        <div className="form-group divid">
+                            <label htmlFor="network">Network</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="network"
+                                required
+                                value={this.state.network}
+                                onChange={this.onChangeNetwork}
+                                name="network"
+                                placeholder="eg. Netflix"
+                            />
+                        </div>
+                        <div className="divid">
+                            <label htmlFor="weekday">Weekday</label>
+                            <Multiselect
+                                name="weekday"
+                                options={this.state.weekdayOptions}
+                                selectedValues={this.state.weekday}
+                                displayValue="name"
+                                onSelect={this.onChangeWeekday}
+                                onRemove={this.onChangeWeekday}
+                            />
+                        </div>
+                        <div className="form-group divid">
+                            <label htmlFor="status">Status</label>
+                            <select name="status" id="status" className="form-control">
+                                <option selected>Active</option>
+                                <option>Deactive</option>
+                            </select>
+                        </div>
+                        <div>
+                        </div>
+                        <Link to={"/shows"} className="btn btn-danger btn-style">Cancel</Link>
+                        <button onClick={this.saveShow} className="btn btn-success btn-style">
                             Submit
                         </button>
                     </div>
@@ -112,4 +165,4 @@ class AddShow extends Component {
     }
 }
 
-export default connect(null, { createShow })(AddShow);
+export default connect(null, {createShow})(AddShow);
