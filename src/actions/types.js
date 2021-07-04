@@ -1,0 +1,5 @@
+export const CREATE_SHOW = "CREATE_SHOW";
+export const RETRIEVE_SHOWS = "RETRIEVE_SHOWS";
+export const UPDATE_SHOW = "UPDATE_SHOW";
+export const DELETE_SHOW = "DELETE_SHOW";
+export const DELETE_ALL_SHOWS = "DELETE_ALL_SHOWS";
