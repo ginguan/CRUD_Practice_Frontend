@@ -12,6 +12,7 @@ class AddShow extends Component {
         this.onChangeDescription = this.onChangeDescription.bind(this);
         this.onChangeNetwork = this.onChangeNetwork.bind(this);
         this.onChangeWeekday = this.onChangeWeekday.bind(this);
+        this.onChangeStatus= this.onChangeStatus.bind(this);
         this.saveShow = this.saveShow.bind(this);
         this.newShow = this.newShow.bind(this);
 
@@ -21,7 +22,7 @@ class AddShow extends Component {
             description: "",
             network: "",
             weekday: [],
-            published: false,
+            status: "",
             submitted: false,
             weekdayOptions: [{name: 'Monday'}, {name: 'Tuesday'}, {name: 'Wednesday'}, {name: 'Thursday'}, {name: 'Friday'}, {name: 'Saturday'}, {name: 'Sunday'}],
         };
@@ -42,6 +43,11 @@ class AddShow extends Component {
     onChangeNetwork(e) {
         this.setState({
             network: e.target.value,
+        });
+    }
+    onChangeStatus(e) {
+        this.setState({
+            status: e.target.value,
         });
     }
 
@@ -147,7 +153,7 @@ class AddShow extends Component {
                         </div>
                         <div className="form-group divid">
                             <label htmlFor="status">Status</label>
-                            <select name="status" id="status" className="form-control">
+                            <select name="status" id="status" className="form-control" onChange={this.onChangeStatus}>
                                 <option selected>Active</option>
                                 <option>Deactive</option>
                             </select>
