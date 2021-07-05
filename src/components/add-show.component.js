@@ -92,7 +92,9 @@ class AddShow extends Component {
             id: null,
             title: "",
             description: "",
-            published: false,
+            network: "",
+            weekday: [],
+            status: true,
             submitted: false,
         });
     }
@@ -111,7 +113,7 @@ class AddShow extends Component {
                     </div>
                 ) : (
                     <div>
-                        <div className="form-group divid">
+                        <div className="form-group divide">
                             <label htmlFor="title">Title</label>
                             <input
                                 type="text"
@@ -123,7 +125,7 @@ class AddShow extends Component {
                                 name="title"
                             />
                         </div>
-                        <div className="form-group divid">
+                        <div className="form-group divide">
                             <label htmlFor="description">Description</label>
                             <input
                                 type="text"
@@ -135,7 +137,7 @@ class AddShow extends Component {
                                 name="description"
                             />
                         </div>
-                        <div className="form-group divid">
+                        <div className="form-group divide">
                             <label htmlFor="network">Network</label>
                             <input
                                 type="text"
@@ -148,7 +150,7 @@ class AddShow extends Component {
                                 placeholder="eg. Netflix"
                             />
                         </div>
-                        <div className="divid">
+                        <div className="divide">
                             <label htmlFor="weekday">Weekday</label>
                             <Multiselect
                                 name="weekday"
@@ -159,7 +161,7 @@ class AddShow extends Component {
                                 onRemove={this.onChangeWeekday}
                             />
                         </div>
-                        <div className="form-group divid">
+                        <div className="form-group divide">
                             <label htmlFor="status">Status</label>
                             <select name="status" id="status" className="form-control" onChange={this.onChangeStatus}>
                                 <option selected>Active</option>

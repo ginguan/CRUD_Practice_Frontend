@@ -42,6 +42,7 @@ class ShowsList extends Component {
     }
 
     removeAllShows() {
+        window.confirm("Are you sure you wish to delete all show, it will not be able to recover?") &&
         this.props
             .deleteAllShows()
             .then((response) => {
@@ -112,16 +113,10 @@ class ShowsList extends Component {
                         Remove All
                     </button>
                 </div>
-                <div className="col-md-6">
+                <div className="col-md-6 ">
                     {currentShow ? (
-                        <div>
-                            <h4>Show</h4>
-                            <div>
-                                <label>
-                                    <strong>Title:</strong>
-                                </label>{" "}
-                                {currentShow.title}
-                            </div>
+                        <div className="info-list">
+                            <h4 style={{textTransform:"uppercase",textAlign: "center"}}>{currentShow.title}</h4>
                             <div>
                                 <label>
                                     <strong>Description:</strong>

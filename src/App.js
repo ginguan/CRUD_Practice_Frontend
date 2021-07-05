@@ -11,7 +11,7 @@ function App() {
   return (
       <Router>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
-          <Link to={"/shows"} className="navbar-brand">
+          <Link to={"/shows"} className="navbar-brand" style={{marginLeft:"55px"}}>
             Home
           </Link>
           <div className="navbar-nav mr-auto">
