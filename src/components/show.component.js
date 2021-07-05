@@ -18,7 +18,9 @@ class Show extends Component {
                 id: null,
                 title: "",
                 description: "",
-                published: false,
+                network:"",
+                weekday:[],
+                status:false,
             },
             message: "",
         };
@@ -70,14 +72,15 @@ class Show extends Component {
             id: this.state.currentShow.id,
             title: this.state.currentShow.title,
             description: this.state.currentShow.description,
-            published: status,
+            status: this.state.currentShow.status,
+            network:this.state.currentShow.network,
+            weekday:this.state.currentShow.weekday
         };
 
         this.props
             .updateShow(this.state.currentShow.id, data)
             .then((reponse) => {
                 console.log(reponse);
-
                 this.setState((prevState) => ({
                     currentShow: {
                         ...prevState.currentShow,

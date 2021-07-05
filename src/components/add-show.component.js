@@ -22,11 +22,11 @@ class AddShow extends Component {
             description: "",
             network: "",
             weekday: [],
-            status: false,
+            status: true,
             submitted: false,
-            weekdayOptions: [{name: 'Monday'}, {name: 'Tuesday'}, {name: 'Wednesday'}, {name: 'Thursday'}, {name: 'Friday'}, {name: 'Saturday'}, {name: 'Sunday'}],
-        };
-    }
+            weekdayString:[],
+            weekdayOptions: [{name: 'Monday',id:2}, {name: 'Tuesday',id:3}, {name: 'Wednesday',id:4}, {name: 'Thursday',id:1}, {name: 'Friday',id:5}, {name: 'Saturday',id:6}, {name: 'Sunday',id:7}],
+        };}
 
     onChangeTitle(e) {
         this.setState({
@@ -46,39 +46,41 @@ class AddShow extends Component {
         });
     }
     onChangeStatus(e) {
-        console.log(e.target.value)
-        if(e.target.value =="Active"){
+        if(e.target.value ==="Active"){
             this.setState({
                 status:true,
             });
         }
-        else{this.setState({
+        else{
+            this.setState({
             status:false,
         });}
     }
 
     onChangeWeekday(e) {
         const values = Array.from(e, option => option);
+        const stringValues = Array.from(e, option => option.name);
         this.setState({
-                weekday: values
-            }
-        )
+                weekday: values,
+                weekdayString:stringValues
+        })
     }
 
     saveShow() {
-        const {title, description} = this.state;
+        const {title, description,network,weekdayString,status} = this.state;
         this.props
-            .createShow(title, description)
+            .createShow(title, description,network,weekdayString,status)
             .then((data) => {
                 this.setState({
                     id: data.id,
                     title: data.title,
                     description: data.description,
-                    published: data.published,
-
+                    weekdayString: data.weekdayString,
+                    network: data.network,
+                    status: data.status,
                     submitted: true,
                 });
-                console.log(data);
+                console.log("data:",data);
             })
             .catch((e) => {
                 console.log(e);
@@ -97,7 +99,7 @@ class AddShow extends Component {
 
 
     render() {
-        console.log("now", this.state.status)
+        console.log(this.state.status)
         return (
             <div className="submit-form">
                 {this.state.submitted ? (
