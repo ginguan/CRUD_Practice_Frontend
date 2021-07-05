@@ -22,7 +22,7 @@ class AddShow extends Component {
             description: "",
             network: "",
             weekday: [],
-            status: "",
+            status: false,
             submitted: false,
             weekdayOptions: [{name: 'Monday'}, {name: 'Tuesday'}, {name: 'Wednesday'}, {name: 'Thursday'}, {name: 'Friday'}, {name: 'Saturday'}, {name: 'Sunday'}],
         };
@@ -46,9 +46,15 @@ class AddShow extends Component {
         });
     }
     onChangeStatus(e) {
-        this.setState({
-            status: e.target.value,
-        });
+        console.log(e.target.value)
+        if(e.target.value =="Active"){
+            this.setState({
+                status:true,
+            });
+        }
+        else{this.setState({
+            status:false,
+        });}
     }
 
     onChangeWeekday(e) {
@@ -91,7 +97,7 @@ class AddShow extends Component {
 
 
     render() {
-        console.log("now", this.state.weekday)
+        console.log("now", this.state.status)
         return (
             <div className="submit-form">
                 {this.state.submitted ? (
