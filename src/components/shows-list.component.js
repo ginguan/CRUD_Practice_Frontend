@@ -1,11 +1,7 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import {
-    retrieveShows,
-    findShowsByTitle,
-    deleteAllShows,
-} from "../actions/shows";
-import { Link } from "react-router-dom";
+import React, {Component} from "react";
+import {connect} from "react-redux";
+import {deleteAllShows, findShowsByTitle, retrieveShows,} from "../actions/shows";
+import {Link} from "react-router-dom";
 
 class ShowsList extends Component {
     constructor(props) {
@@ -37,12 +33,14 @@ class ShowsList extends Component {
             currentIndex: -1,
         });
     }
+
     setActiveShow(show, index) {
         this.setState({
             currentShow: show,
             currentIndex: index,
         });
     }
+
     removeAllShows() {
         this.props
             .deleteAllShows()
@@ -61,8 +59,18 @@ class ShowsList extends Component {
     }
 
     render() {
-        const { searchTitle, currentShow, currentIndex } = this.state;
-        const { shows } = this.props;
+        const {searchTitle, currentShow, currentIndex} = this.state;
+        const {shows} = this.props;
+        var days = "";
+        if (currentShow) {
+            for (var day of currentShow.weekday) {
+                if (day != currentShow.weekday[currentShow.weekday.length - 1]) {
+                    days += day + ", ";
+                } else {
+                    days += day;
+                }
+            }
+        }
         return (
             <div className="list row">
                 <div className="col-md-8">
@@ -90,8 +98,8 @@ class ShowsList extends Component {
                         {shows &&
                         shows.map((show, index) => (
                             <li className={
-                                    "list-group-item " +
-                                    (index === currentIndex ? "active" : "")}
+                                "list-group-item " +
+                                (index === currentIndex ? "active" : "")}
                                 onClick={() => this.setActiveShow(show, index)}
                                 key={index}>
                                 {show.title}
@@ -130,7 +138,7 @@ class ShowsList extends Component {
                                 <label>
                                     <strong>Weekday:</strong>
                                 </label>{" "}
-                                {currentShow.weekday}
+                                {days}
                             </div>
                             <div>
                                 <label>
@@ -146,7 +154,7 @@ class ShowsList extends Component {
                         </div>
                     ) : (
                         <div>
-                            <br />
+                            <br/>
                             <p>Please click on a Show...</p>
                         </div>
                     )}
