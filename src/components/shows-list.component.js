@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {deleteAllShows, findShowsByTitle, retrieveShows,} from "../actions/shows";
 import {Link} from "react-router-dom";
-
 class ShowsList extends Component {
     constructor(props) {
         super(props);
@@ -13,7 +12,7 @@ class ShowsList extends Component {
         this.removeAllShows = this.removeAllShows.bind(this);
         this.state = {
             currentShow: null,
-            currentIndex: -1,
+            currentIndex: 0,
             searchTitle: "",
         };
     }
@@ -23,14 +22,16 @@ class ShowsList extends Component {
     }
 
     onChangeSearchTitle(e) {
-        const searchTitle = e.target.value;
-        this.setState({searchTitle: searchTitle});
+        this.setState({searchTitle: e.target.value});
+        var searchTitle = e.target.value;
+        this.props.findShowsByTitle(e.target.value);
+        this.refreshData();
     }
 
     refreshData() {
         this.setState({
             currentShow: null,
-            currentIndex: -1,
+            currentIndex: 0,
         });
     }
 
@@ -77,27 +78,20 @@ class ShowsList extends Component {
                 <div className="col-md-8">
                     <div className="input-group mb-3">
                         <input
-                            type="text"
+                            type="search"
                             className="form-control"
                             placeholder="Search by title"
-                            value={searchTitle}
+                            value={this.state.searchTitle}
                             onChange={this.onChangeSearchTitle}
                         />
-                        <div className="input-group-append">
-                            <button
-                                className="btn btn-outline-secondary"
-                                type="button"
-                                onClick={this.findByTitle}>
-                                Search
-                            </button>
-                        </div>
                     </div>
                 </div>
                 <div className="col-md-6">
                     <h4>Shows List</h4>
                     <ul className="list-group">
                         {shows &&
-                        shows.map((show, index) => (
+                        shows.map((show, index) =>
+                            (
                             <li className={
                                 "list-group-item " +
                                 (index === currentIndex ? "active" : "")}
@@ -105,6 +99,7 @@ class ShowsList extends Component {
                                 key={index}>
                                 {show.title}
                             </li>
+
                         ))}
                     </ul>
                     <button
@@ -141,16 +136,18 @@ class ShowsList extends Component {
                                 </label>{" "}
                                 {currentShow.status ? "Active" : "Deactivate"}
                             </div>
-                            <Link
-                                to={"/shows/" + currentShow.id}
-                                className="badge badge-warning">
-                                Edit
-                            </Link>
+                            <div>
+                                <Link to={"/shows/" + currentShow.id}
+                                    className="m-3 btn btn btn-primary"
+                                    >
+                                    Edit
+                                </Link>
+                            </div>
                         </div>
                     ) : (
                         <div>
                             <br/>
-                            <p>Please click on a Show...</p>
+                            <p>Please click on a show to see info details</p>
                         </div>
                     )}
                 </div>

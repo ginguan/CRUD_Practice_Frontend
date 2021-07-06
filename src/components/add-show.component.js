@@ -101,14 +101,14 @@ class AddShow extends Component {
 
 
     render() {
-        console.log(this.state.status)
+        console.log("weekdayOptions",this.state.weekday)
         return (
             <div className="submit-form">
                 {this.state.submitted ? (
                     <div>
                         <h4>You submitted successfully!</h4>
                         <button className="btn btn-success" onClick={this.newShow}>
-                            Add
+                            Continue Adding
                         </button>
                     </div>
                 ) : (
@@ -164,7 +164,7 @@ class AddShow extends Component {
                         <div className="form-group divide">
                             <label htmlFor="status">Status</label>
                             <select name="status" id="status" className="form-control" onChange={this.onChangeStatus}>
-                                <option selected>Active</option>
+                                <option>Active</option>
                                 <option>Deactive</option>
                             </select>
                         </div>
