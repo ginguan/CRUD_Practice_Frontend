@@ -12,6 +12,7 @@ class Show extends Component {
         this.getShow = this.getShow.bind(this);
         this.updateStatus = this.updateStatus.bind(this);
         this.onChangeWeekday = this.onChangeWeekday.bind(this);
+        this.onChangeNetwork = this.onChangeNetwork.bind(this);
         this.onChangeStatus= this.onChangeStatus.bind(this);
         this.updateContent = this.updateContent.bind(this);
         this.removeShow = this.removeShow.bind(this);
@@ -43,6 +44,18 @@ class Show extends Component {
                 currentShow: {
                     ...prevState.currentShow,
                     title: title,
+                },
+            };
+        });
+    }
+    onChangeNetwork(e) {
+        const network = e.target.value;
+
+        this.setState(function (prevState) {
+            return {
+                currentShow: {
+                    ...prevState.currentShow,
+                    network: network,
                 },
             };
         });
@@ -108,18 +121,14 @@ class Show extends Component {
             .updateShow(this.state.currentShow.id, this.state.currentShow)
             .then((reponse) => {
                 console.log(reponse);
-
                 this.setState({ message: "The show was updated successfully!" });
+                this.props.history.push("/shows");
             })
             .catch((e) => {
                 console.log(e);
             });
     }
-    onChangeNetwork(e) {
-        this.setState({
-            network: e.target.value,
-        });
-    }
+
     onChangeStatus(e) {
         if(e.target.value ==="Active"){
             this.setState({

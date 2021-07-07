@@ -80,7 +80,6 @@ class AddShow extends Component {
                     status: data.status,
                     submitted: true,
                 });
-                console.log("data:",data);
             })
             .catch((e) => {
                 console.log(e);
@@ -101,7 +100,6 @@ class AddShow extends Component {
 
 
     render() {
-        console.log("weekdayOptions",this.state.weekday)
         return (
             <div className="submit-form">
                 {this.state.submitted ? (
